@@ -45,6 +45,8 @@ extern NSString *currentGamePath;
 		sharedEmulatorCoreInstance = self;
 		soundBuffersInitialized = 0;
 		currentROMImagePath = nil;
+        
+        gameControllerManager = [GameControllerManager sharedInstance];
 	}
 	
 	return self;
@@ -195,8 +197,7 @@ extern NSString *currentGamePath;
 
 - (void)emulatorCallbackInputPadState:(uint *)pad1 pad2:(uint *)pad2 zapper:(uint *)zapper x:(uint *)x y:(uint *)y
 {
-    
-    *pad1 = controllerP1;
+    *pad1 = controllerP1 | gameControllerManager.currentControllerInput;
     *pad2 = controllerP2;
     *zapper = zapperState;
     *x = zapperX;

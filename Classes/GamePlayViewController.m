@@ -41,6 +41,17 @@ BOOL emulatorRunning;
     
     [ self initializeEmulatorView ];
     [ self initializeEmulator ];
+    
+    GameControllerManager *gameControllerManager = [GameControllerManager sharedInstance];
+    gameControllerManager.delegate = self;
+    gameControllerManager.swapAB = [[[ EmulatorCore globalSettings ] objectForKey: @"swapAB" ] boolValue ];
+
+    if (gameControllerManager.gameControllerConnected) {
+        [self gameControllerManagerGamepadDidConnect:gameControllerManager];
+    }
+    else {
+        [self gameControllerManagerGamepadDidDisconnect:gameControllerManager];
+    }
 }
 
 - (void)initializeEmulatorView {
@@ -388,6 +399,23 @@ BOOL emulatorRunning;
     
     [ emulatorCore applyGameGenieCodes ];
     [ emulatorCore restartEmulator ];
+}
+
+#pragma mark -
+#pragma mark iOS 7 Game Controller Handling
+
+- (void)gameControllerManagerGamepadDidConnect:(GameControllerManager *)controllerManager {
+    [UIView animateWithDuration:0.3
+                     animations:^{
+                         controllerView.alpha = 0.05;
+                     }];
+}
+
+- (void)gameControllerManagerGamepadDidDisconnect:(GameControllerManager *)controllerManager {
+    [UIView animateWithDuration:0.3
+                     animations:^{
+                         controllerView.alpha = 1.0;
+                     }];
 }
 
 @end

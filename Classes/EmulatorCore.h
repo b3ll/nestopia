@@ -24,6 +24,7 @@
 #import "ControllerView.h"
 #import "NestopiaCore.h"
 #include "Nestopia_Callback.h"
+#import "GameControllerManager.h"
 
 void AQBufferCallback(void *callbackStruct, AudioQueueRef inQ, AudioQueueBufferRef outQB);
 void *emulation_thread(void *args);
@@ -72,6 +73,9 @@ typedef struct AQCallbackStruct {
     
     NestopiaCore *nestopiaCore;
     short waveBuffer[WAVE_BUFFER_SIZE * WAVE_BUFFER_BANKS];
+    
+    /* iOS 7 GameController Management */
+    GameControllerManager *gameControllerManager;
 }
 
 + (EmulatorCore *)sharedEmulatorCore;

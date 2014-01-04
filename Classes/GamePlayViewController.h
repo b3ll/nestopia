@@ -24,11 +24,12 @@
 #import "EmulatorCore.h"
 #import "ScreenView.h"
 #import "SettingsViewController.h"
+#import "GameControllerManager.h"
 
 #define kGamePlaySavedStateNotification         @"GamePlaySavedStateNotification"
 #define kGamePlayChangedFavoritesNotification   @"GamePlayChangedFavoritesNotification"
 
-@interface GamePlayViewController : UIViewController <UIActionSheetDelegate>
+@interface GamePlayViewController : UIViewController <UIActionSheetDelegate, GameControllerManagerDelegate>
 {
     /* Initialization */
 	UIActionSheet *saveStateSheet;
